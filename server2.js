@@ -45,6 +45,22 @@ const getUserByIdHandler = (req, res) => {
   res.end();
 };
 
+//route handler for POST /api/users
+const createUserHandler = (req, res) => {
+  let body = "";
+  //listem for data
+  req.on("data", (chunk) => {
+    body += chunk.toString();
+  });
+  req.on("end", () => {
+    const newUser = JSON.parse(body);
+    users.push(newUser);
+    res.statusCode = 201;
+    res.write(JSON.stringify(newUser));
+    res.end();
+  });
+};
+
 // NotFoundHandler
 const NotFoundHandler = (req, res) => {
   console.log("NotFoundHandler called");
@@ -65,6 +81,8 @@ const server = createServer((req, res) => {
       ) {
         console.log("Handling /api/users/:id");
         getUserByIdHandler(req, res);
+      } else if (req.url === "/api/users" && req.method === "POST") {
+        createUserHandler(req, res);
       } else {
         console.log("Route not found");
         NotFoundHandler(req, res);
