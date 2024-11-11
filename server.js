@@ -1,5 +1,3 @@
-// https://www.youtube.com/watch?v=32M1al-Y6Ag&list=PLatJ6sSqHbPfGFwiZFgnyDf80rAo9PCH8&index=22     57'
-
 import http from "http";
 import fs from "fs/promises";
 import url from "url";
